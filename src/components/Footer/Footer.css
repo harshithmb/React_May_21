@@ -1,0 +1,8 @@
+.footer{
+    background-color: antiquewhite;
+    /* bottom: 0; */
+    display: flex;
+    justify-content: center;
+    /* position: absolute; */
+    width: 100%;
+}
