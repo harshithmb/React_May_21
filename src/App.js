@@ -1,30 +1,55 @@
-import './App.css';
+import React, { Component } from 'react';
+import "./App.css";
+import Banner from './components/Banner';
+import Card from './components/Card';
 import Footer from './components/Footer';
-//import TopBarComponent from "./components/TopBar";
-import { TopBar, SubNavBar } from "./components/TopBar";
-import Card from "./components/Card";
-import { products as productsData, userName } from "./commonData"
-import Grid from './components/Grid';
+import Navbar from './components/Navbar';
 
-function App() {
+import { apiData } from "./utils/commonData"
 
-  const fullName = (first, last) => {
-    return `${first} ${last}` // first + " " + last
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cartProducts: []
+    }
   }
-
-  return (
-    <div className="App">
-      {/* <TopBar name={userName} />
-      <SubNavBar /> */}
-      <Grid />
-      {productsData.map(({ imageUrl, title, id }, index) =>
-        <Card imageUrl={imageUrl} title={title} index={id} />)
-      }
+  render() {
+    const { catalogEntryView, ...restData } = apiData;
+    return (<div>
+      <Navbar cartCount={this.state.cartProducts.length} />
+      <Banner />
+      <hr />
+      {/* Cards Start */}
+      <div className="p-2 d-flex justify-content-center flex-wrap">
+        {catalogEntryView.map((item) => <Card item={item}
+          addProduct={(product) =>
+            this.setState({
+              cartProducts: [...this.state.cartProducts, product]
+            })}
+        />)}
+      </div>
+      {/* Cards End */}
       <Footer />
-    </div>
-  );
+    </div>);
+  }
 }
 
+// const App = () => {
+//   const { catalogEntryView, ...restData } = apiData;
+
+//   return (<div>
+//     <Navbar />
+//     <Banner />
+//     <hr />
+//     {/* Cards Start */}
+//     <div className="p-2 d-flex justify-content-center flex-wrap">
+//       {catalogEntryView.map((item) => <Card item={item} />)}
+//     </div>
+//     {/* Cards End */}
+//     <Footer />
+//   </div>);
+// }
+
 export default App;
-
-
