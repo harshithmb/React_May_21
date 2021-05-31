@@ -39,7 +39,6 @@ import { apiData } from "./utils/commonData"
 const App = () => {
   const { catalogEntryView, ...restData } = apiData;
   const [cartProducts, setCartProducts] = useState([]);
-  const [showModal, setShowModal] = useState(false)
 
   const updateCart = (product) => {
     //Code If product exist ->>>> Increase the quantity by 1
@@ -68,11 +67,6 @@ const App = () => {
     </div>
     {/* Cards End */}
     <Footer />
-
-    <button type="button" class="btn btn-primary" onClick={() => setShowModal(true)}>
-      Launch demo modal
-</button>
-
   </div>);
 }
 
