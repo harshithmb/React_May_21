@@ -1,111 +1,270 @@
-import React, { Component, useState } from 'react';
+import React, { Component, PureComponent, useEffect, useState } from 'react';
 import "./App.css";
-import Banner from './components/Banner';
-import Card from './components/Card';
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
 
-import { apiData } from "./utils/commonData"
+const Parent = () => {
+  const [showChild, updateShowChild] = useState(true);
+  const [count, updateCount] = useState(0)
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      products: [],
-      count: 0,
-      showLife: true
-    }
-    console.log("First Call Constructor - App")
+  const showHide = () => {
+    console.log(showChild)
+    updateShowChild(!showChild)
   }
 
-  componentDidMount() {
-    console.log("componentDidMount - App")
-    setTimeout(() =>
-      fetch('https://jsonplaceholder.typicode.com/todos')
-        .then(response => response.json())
-        .then(json => this.setState({
-          products: json, loading: false
-        })), 5000)
-  }
+  /*Lifecycle*/
+  useEffect(() => {
+    console.log("Component DId Mount")
+  }, [])
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("Update phase shouldcomponentupdate App")
-    if (nextState.count <= 10 && !(nextState.count < 0)) {
-      return true
-    } else {
-      return false
-    }
-  }
+  useEffect(() => {
+    console.log("Component DId Mount Component DId Update")
+  })
+  /*!Lifecycle*/
 
-  componentDidUpdate() {
-    console.log("Update Phase after render")
-  }
-
-
-  render() {
-    console.log("Second Call Render - App")
-    const { count, loading, products, showLife } = this.state;
-    return (<>
-      <h1>App - {count}</h1>
-      <button
-        onClick={() =>
-          this.setState({
-            count: this.state.count - 1
-          })}
-      >Decrement</button>
-      <button
-        onClick={() =>
-          this.setState({
-            count: this.state.count + 1
-          })}
-      >Increment</button>
-
-
-
-
-      {/* <button onClick={() =>
-        this.setState({ count: this.state.count + 1 })
-      }>Click</button>
-      {loading && <h1>Loading...</h1>}
-      <hr />
-      <button onClick={() =>
-        this.setState({ showLife: !this.state.showLife })
-      }>Show/Hide</button>
-      {showLife && <LifeCycle count={count} />} */}
-      {/* {products.length ? products.map((item) =>
-        <h5>{item.title}</h5>) : ""} */}
-    </>);
-  }
+  return (<div>
+    <h1>Parent</h1>
+    <button onClick={showHide}>Show/Hide</button>
+    <button onClick={() => count < 6 && updateCount(count + 1)}>Count</button>
+    <hr />
+    {showChild && <Child count={count} />}
+  </div>);
 }
 
-export default App;
+export default Parent;
 
-class LifeCycle extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
+const Child = ({ count }) => {
+  const [childCount, updateChildCount] = useState(count);
+  useEffect(() => {
+    return () => { console.log("Clean UP") }
+  }, [])
 
-  }
-  componentDidMount() {
-    // console.log("componentDidMount - Lifecycle")
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.count <= 3) {
-      return true
-    } else return false
-  }
+  useEffect(() => {
+    if (count <= 5) {
+      updateChildCount(count)
+    }
+  }, [count])
 
-  componentWillUnmount() {
-    console.log("When component dies")
-  }
-  render() {
-
-    return (<>
-      <h1>Life Cycle Methods - {this.props.count}</h1>
-    </>);
-  }
+  return (<div>
+    <h1>Child  - {childCount}</h1>
+  </div>);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class Parent extends PureComponent {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       count: 0,
+//       showChild: true
+//     }
+//   }
+//   componentDidMount() {
+//     console.log("componentDidMount Parent")
+//     setTimeout(() => this.setState({ count: 1 }), 4000)
+//   }
+//   // shouldComponentUpdate(nextProps, nextState) {
+//   //   console.log("shouldComponentUpdate - Parent")
+//   //   if (nextState.count == 1) {
+//   //     return false
+//   //   } else return true
+//   // }
+//   componentDidUpdate() {
+//     console.log("componentDidUpdate Parent")
+//   }
+
+//   render() {
+//     console.log("Render Parent")
+//     return (<div>
+//       <h1>Parent - {this.state.count} </h1>
+//       <button onClick={() => this.setState({ showChild: !this.state.showChild })}>Show/Hide</button>
+//       {this.state.showChild && <Child />}{/*Holded*/}
+//       <hr />
+//     </div>);
+//   }
+// }
+
+// export default Parent;
+
+// class Child extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {}
+//   }
+//   componentDidMount() {
+//     console.log("componentDidMount Child")
+//   }
+//   componentWillUnmount() {
+//     console.log("componentWillUnMount - Child")
+//   }
+//   render() {
+//     return (<div>
+//       <h1>Child</h1>
+//     </div>);
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import Banner from './components/Banner';
+// import Card from './components/Card';
+// import Footer from './components/Footer';
+// import Navbar from './components/Navbar';
+
+// import { apiData } from "./utils/commonData"
+
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       loading: true,
+//       products: [],
+//       count: 0,
+//       showLife: true
+//     }
+//     console.log("First Call Constructor - App")
+//   }
+
+//   componentDidMount() {
+//     console.log("componentDidMount - App")
+//     // setTimeout(() =>
+//     fetch('https://jsonplaceholder.typicode.com/todos')
+//       .then(response => response.json())
+//       .then(json => this.setState({
+//         products: json, loading: false
+//       }))
+//     // , 5000)
+//   }
+
+//   shouldComponentUpdate(nextProps, nextState) {
+//     console.log("Update phase shouldcomponentupdate App")
+//     if (nextState.count <= 10 && !(nextState.count < 0)) {
+//       return true
+//     } else {
+//       return false
+//     }
+//   }
+
+//   componentDidUpdate() {
+//     console.log("Update Phase after render")
+//   }
+
+
+//   render() {
+//     console.log("Second Call Render - App")
+//     const { count, loading, products, showLife } = this.state;
+//     return (<>
+//       <h1>App - {count}</h1>
+//       <button
+//         onClick={() =>
+//           this.setState({
+//             count: this.state.count - 1
+//           })}
+//       >Decrement</button>
+//       <button
+//         onClick={() =>
+//           this.setState({
+//             count: this.state.count + 1
+//           })}
+//       >Increment</button>
+
+
+
+//       {loading && <h1>Loading...</h1>}
+//       {/* <button onClick={() =>
+//         this.setState({ count: this.state.count + 1 })
+//       }>Click</button>
+
+//       <hr />
+//       <button onClick={() =>
+//         this.setState({ showLife: !this.state.showLife })
+//       }>Show/Hide</button>
+//       {showLife && <LifeCycle count={count} />} */}
+//       {products.length ? products.map((item) =>
+//         <h5>{item.title}</h5>) : ""}
+//     </>);
+//   }
+// }
+
+// export default App;
+
+// class LifeCycle extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {}
+
+//   }
+//   componentDidMount() {
+//     // console.log("componentDidMount - Lifecycle")
+//   }
+//   shouldComponentUpdate(nextProps, nextState) {
+//     if (nextProps.count <= 3) {
+//       return true
+//     } else return false
+//   }
+
+//   componentWillUnmount() {
+//     console.log("When component dies")
+//   }
+//   render() {
+
+//     return (<>
+//       <h1>Life Cycle Methods - {this.props.count}</h1>
+//     </>);
+//   }
+// }
 
 
 
