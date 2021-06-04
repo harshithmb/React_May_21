@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./App.css";
+import axios from "axios";
 
 const Parent = () => {
   const [showChild, updateShowChild] = useState(true);
@@ -16,12 +17,15 @@ const Parent = () => {
   /*Lifecycle*/
   useEffect(() => {
     console.log("Component DId Mount API")
-    fetch('https://jsonplaceholder.typicode.com/photos')
-      .then(response => response.json())
-      .then(json => {
-        const tenProducts = json.slice(productIndex, 10);
+    // fetch('https://jsonplaceholder.typicode.com/photos')
+    //   .then(response => response.json())
+
+
+    axios.get("https://jsonplaceholder.typicode.com/photos")
+      .then(res => {
+        const tenProducts = res.data.slice(productIndex, 10);
         setProductIndex(11);
-        setCProducts(json)
+        setCProducts(res.data)
         setProducts(tenProducts)
       })
   }, [])
