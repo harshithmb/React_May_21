@@ -1,9 +1,12 @@
-import React, { Component, PureComponent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./App.css";
 
 const Parent = () => {
   const [showChild, updateShowChild] = useState(true);
-  const [count, updateCount] = useState(0)
+  const [count, updateCount] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [completeProducts, setCProducts] = useState([]);
+  const [productIndex, setProductIndex] = useState(0);
 
   const showHide = () => {
     console.log(showChild)
@@ -12,20 +15,48 @@ const Parent = () => {
 
   /*Lifecycle*/
   useEffect(() => {
-    console.log("Component DId Mount")
+    console.log("Component DId Mount API")
+    fetch('https://jsonplaceholder.typicode.com/photos')
+      .then(response => response.json())
+      .then(json => {
+        const tenProducts = json.slice(productIndex, 10);
+        setProductIndex(11);
+        setCProducts(json)
+        setProducts(tenProducts)
+      })
   }, [])
 
   useEffect(() => {
     console.log("Component DId Mount Component DId Update")
   })
+
   /*!Lifecycle*/
 
+  const addMoreProducts = () => {
+    const nextIndex = productIndex + 10;
+    const tenProducts = completeProducts.
+      slice(productIndex, nextIndex); // 11 to 21 before 21
+    setProductIndex(nextIndex);
+    const updateProducts = [...products, ...tenProducts]
+    updateProducts.length < 50 && setProducts(updateProducts)
+  }
+
   return (<div>
-    <h1>Parent</h1>
+    <h1 className="head-title">Parent - {products.length}</h1>
     <button onClick={showHide}>Show/Hide</button>
     <button onClick={() => count < 6 && updateCount(count + 1)}>Count</button>
-    <hr />
+
     {showChild && <Child count={count} />}
+
+    {/*Cards*/}
+    <div className="products">
+      {products.length && products.map(({ title, url, thumbnailUrl, id }) => <div key={id} className="card">
+        <h5>{title}</h5>
+        <img src={thumbnailUrl} />
+      </div>)}
+    </div>
+
+    {products.length && products.length < 40 ? <button onClick={addMoreProducts}>Show More Products</button> : ""}
   </div>);
 }
 
@@ -44,7 +75,7 @@ const Child = ({ count }) => {
   }, [count])
 
   return (<div>
-    <h1>Child  - {childCount}</h1>
+    <h1 className="head-child">Child  - {childCount}</h1>
   </div>);
 }
 
