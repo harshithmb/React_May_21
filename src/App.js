@@ -29,7 +29,6 @@ const Parent = () => {
   useEffect(() => {
     console.log("Component DId Mount Component DId Update")
   })
-
   /*!Lifecycle*/
 
   const addMoreProducts = () => {
@@ -55,7 +54,7 @@ const Parent = () => {
         <img src={thumbnailUrl} />
       </div>)}
     </div>
-
+    {/*User can add the see products till 40 length*/}
     {products.length && products.length < 40 ? <button onClick={addMoreProducts}>Show More Products</button> : ""}
   </div>);
 }
