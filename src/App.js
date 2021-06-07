@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./App.css";
 import axios from "axios";
+import { blogData, filterData } from "./utils/commonData"
 
 const Parent = () => {
   const [showChild, updateShowChild] = useState(true);
@@ -8,6 +9,8 @@ const Parent = () => {
   const [products, setProducts] = useState([]);
   const [completeProducts, setCProducts] = useState([]);
   const [productIndex, setProductIndex] = useState(0);
+  const [filters, setFilters] = useState([])
+  const [blogs, setBlogs] = useState([])
 
   const showHide = () => {
     console.log(showChild)
@@ -21,13 +24,21 @@ const Parent = () => {
     //   .then(response => response.json())
 
 
-    axios.get("https://jsonplaceholder.typicode.com/photos")
-      .then(res => {
-        const tenProducts = res.data.slice(productIndex, 10);
-        setProductIndex(11);
-        setCProducts(res.data)
-        setProducts(tenProducts)
-      })
+    // axios("https://jsonplaceholder.typicode.com/photos")
+    //   .then(res => {
+    //     const tenProducts = res.data.slice(productIndex, 10);
+    //     setProductIndex(11);
+    //     setCProducts(res.data)
+    //     setProducts(tenProducts)
+    //   })
+
+
+    setFilters(filterData)
+    setBlogs(blogData)
+    // axios("https://api.edyoda.com/v1/blog/postcategories")
+    //   .then(res =>
+    //     setFilters(res.data)
+    //     )
   }, [])
 
   useEffect(() => {
@@ -49,6 +60,23 @@ const Parent = () => {
     <button onClick={showHide}>Show/Hide</button>
     <button onClick={() => count < 6 && updateCount(count + 1)}>Count</button>
 
+
+    {/*Filters*/}
+    <div className="capsules">
+      {filters.length && filterData.map(({ id, title }) => <div className="capsule" key={id}>{title}</div>)}
+    </div>
+
+    {/*Blogs*/}
+    <div className="blogs">
+      {blogs.length && blogs.map(({ authorname, id, small_image, posted_on, slug, description, title }) =>
+        <div key={id} className="blog">
+          <img src={small_image} />
+          <h3>{title}</h3>
+          <h5>{authorname}</h5>
+          <p>{description}</p>
+        </div>
+      )}
+    </div>
     {showChild && <Child count={count} />}
 
     {/*Cards*/}

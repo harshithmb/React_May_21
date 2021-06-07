@@ -34,3 +34,37 @@
   width: 300px;
   height: 300px;
 }
+
+.capsules{
+  display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.capsule{
+  border: 1px solid blue;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 10px
+}
+
+.blogs{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.blog{
+  border-radius: 5px;
+  border: 1px solid gray;
+  width: 300px;
+  margin: 20px;
+}
+
+.blog > img{
+  width: 300px;
+  height: 300px;
+}
