@@ -11,7 +11,8 @@ const Parent = () => {
   const [productIndex, setProductIndex] = useState(0);
   const [filters, setFilters] = useState([])
   const [blogs, setBlogs] = useState([])
-
+  const [searchValue, setSearchValue] = useState("");
+  const [originalBlogs, setOriginalBlogs] = useState("");
   const showHide = () => {
     console.log(showChild)
     updateShowChild(!showChild)
@@ -35,6 +36,7 @@ const Parent = () => {
 
     setFilters(filterData)
     setBlogs(blogData)
+    setOriginalBlogs(blogData)
     // axios("https://api.edyoda.com/v1/blog/postcategories")
     //   .then(res =>
     //     setFilters(res.data)
@@ -55,15 +57,26 @@ const Parent = () => {
     updateProducts.length < 50 && setProducts(updateProducts)
   }
 
+  const onSearch = () => {
+    const updatedValues = originalBlogs.filter(item => item.authorname.includes(searchValue))
+    setBlogs(updatedValues)
+  }
+
+  const onFilterClick = (id, title) => {
+    // axios.post()
+    console.log("id, DATA", id, title)
+  }
+
   return (<div>
-    <h1 className="head-title">Parent - {products.length}</h1>
+    {/* <h1 className="head-title">Parent - {products.length}</h1> */}
     <button onClick={showHide}>Show/Hide</button>
     <button onClick={() => count < 6 && updateCount(count + 1)}>Count</button>
 
+    <input className="search" onChange={(e) => setSearchValue(e.target.value)} /> <button onClick={onSearch}>Search</button>
 
     {/*Filters*/}
     <div className="capsules">
-      {filters.length && filterData.map(({ id, title }) => <div className="capsule" key={id}>{title}</div>)}
+      {filters.length && filterData.map(({ id, title }) => <div className="capsule" onClick={() => onFilterClick(id, title)} key={id}>{title}</div>)}
     </div>
 
     {/*Blogs*/}
