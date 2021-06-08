@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./App.css";
 import axios from "axios";
 import { blogData, filterData } from "./utils/commonData"
+import Capsule from './components/Capsule/Capsule';
 
 const Parent = () => {
   const [showChild, updateShowChild] = useState(true);
@@ -38,11 +39,55 @@ const Parent = () => {
     setFilters(filterData)
     setBlogs(blogData)
     setOriginalBlogs(blogData)
-    // axios("https://api.edyoda.com/v1/blog/postcategories")
-    //   .then(res =>
-    //     setFilters(res.data)
-    //     )
+    axios("https://api.edyoda.com/v1/blog/postcategories?id=1234")
+      .then(res =>
+        setFilters(res.data)
+      )
+
+    axios.get("https://api.edyoda.com/v1/blog/postcategories", {
+      params: {
+        id: 123
+      }
+    }).then(res => setFilters(res.data))
+      .catch(err => console.log(err))
+
   }, [])
+
+
+
+  async function getDetails() {
+    const response = await axios.get("https://api.edyoda.com/v1/blog/postcategories", {
+      params: {
+        id: 123
+      }
+    }).then(res => { return res })
+    console.log("response", response)
+  }
+
+  function getDetails_1() {
+    return axios.get("url")
+  }
+
+  const postData = () => {
+    axios({
+      method: "delete", // get delete put
+      url: "https://jsonplaceholder.typicode.com/posts/1",
+      // data: {
+      //   "userId": 1,
+      //   "id": 1,
+      //   "title": "new title",
+      //   "body": "New Body"
+      // }
+      headers: { "content-type": "application/json", "Authorization": "#!@311231" }
+    }).then(res => console.log("Res post", res))
+  }
+
+  Promise.all([getDetails_1()])
+    .then((results) =>
+      console.log(results[0], results[1]))
+
+  //Post
+
 
   useEffect(() => {
     console.log("Component DId Mount Component DId Update")
@@ -74,13 +119,20 @@ const Parent = () => {
   return (<div>
     {/* <h1 className="head-title">Parent - {products.length}</h1> */}
     <button onClick={showHide}>Show/Hide</button>
+    <button onClick={() => postData()}>Hit Post</button>
     <button onClick={() => count < 6 && updateCount(count + 1)}>Count</button>
 
     <input className="search" onChange={(e) => setSearchValue(e.target.value)} /> <button onClick={onSearch}>Search</button>
 
     {/*Filters*/}
     <div className="capsules">
-      {filters.length && filterData.map(({ id, title, slug }) => <div className={filterIndex === id ? "capsule capsule-highlight" : "capsule"} onClick={() => onFilterClick(id, slug)} key={id}>{title}</div>)}
+      {filters.length && filterData.map(({ id, title, slug }) => <Capsule
+        id={id}
+        title={title}
+        slug={slug}
+        filterIndex={filterIndex}
+        onFilterClick={(id, slug) => onFilterClick(id, slug)}
+      />)}
     </div>
 
     {/*Blogs*/}
