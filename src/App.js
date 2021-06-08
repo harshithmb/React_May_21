@@ -13,6 +13,7 @@ const Parent = () => {
   const [blogs, setBlogs] = useState([])
   const [searchValue, setSearchValue] = useState("");
   const [originalBlogs, setOriginalBlogs] = useState("");
+  const [filterIndex, setFilterIndex] = useState(null)
   const showHide = () => {
     console.log(showChild)
     updateShowChild(!showChild)
@@ -58,13 +59,16 @@ const Parent = () => {
   }
 
   const onSearch = () => {
-    const updatedValues = originalBlogs.filter(item => item.authorname.includes(searchValue))
+    const updatedValues = originalBlogs.filter(item => item.authorname.includes(searchValue) || item.slug.includes(searchValue))
     setBlogs(updatedValues)
   }
 
-  const onFilterClick = (id, title) => {
+  const onFilterClick = (id, slug) => {
     // axios.post()
-    console.log("id, DATA", id, title)
+    console.log("id, DATA", id, slug)
+    const updatedValues = originalBlogs.filter(item => item.slug === slug)
+    setBlogs(updatedValues)
+    setFilterIndex(id)
   }
 
   return (<div>
@@ -76,7 +80,7 @@ const Parent = () => {
 
     {/*Filters*/}
     <div className="capsules">
-      {filters.length && filterData.map(({ id, title }) => <div className="capsule" onClick={() => onFilterClick(id, title)} key={id}>{title}</div>)}
+      {filters.length && filterData.map(({ id, title, slug }) => <div className={filterIndex === id ? "capsule capsule-highlight" : "capsule"} onClick={() => onFilterClick(id, slug)} key={id}>{title}</div>)}
     </div>
 
     {/*Blogs*/}
@@ -85,6 +89,7 @@ const Parent = () => {
         <div key={id} className="blog">
           <img src={small_image} />
           <h3>{title}</h3>
+          <h4 style={{ color: "red" }}>{slug}</h4>
           <h5>{authorname}</h5>
           <p>{description}</p>
         </div>
@@ -216,7 +221,21 @@ const Child = ({ count }) => {
 
 
 
+// class App extends Component{
+//   constructor(){
+//     this.getFullName = this.getFullName.bind(this)
+//   }
 
+//   getFullName(){
+
+//   }
+
+//   getFullName1 = () => {
+
+//   }
+//   //this.getFullName() this.getFullName1()
+
+// }
 
 
 
