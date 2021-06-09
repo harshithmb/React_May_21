@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     const [showCartProducts, setShowCartProducts] = useState(false)
@@ -13,7 +14,7 @@ const Navbar = (props) => {
                     <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Features</a>
+                    <Link to="/contact" className="nav-link">Contact</Link>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="#"

@@ -5,7 +5,7 @@ import { blogData, filterData } from "./utils/commonData"
 import Capsule from './components/Capsule/Capsule';
 import moment from "moment";// npm i moment
 import { BrowserRouter as Router, Switch, Link, Route, useParams, Redirect } from "react-router-dom";
-
+import Navbar from "./components/Navbar"
 const App = () => {
   return (<div>
     <Router>
@@ -16,6 +16,8 @@ const App = () => {
           <li><Link to="/contact">Contact</Link></li>
         </ul>
       </nav>
+
+      <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/about" component={About} />
