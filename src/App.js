@@ -3,6 +3,88 @@ import "./App.css";
 import axios from "axios";
 import { blogData, filterData } from "./utils/commonData"
 import Capsule from './components/Capsule/Capsule';
+import moment from "moment";// npm i moment
+import { BrowserRouter as Router, Switch, Link, Route, useParams, Redirect } from "react-router-dom";
+
+const App = () => {
+  return (<div>
+    <Router>
+      <nav>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+        </ul>
+      </nav>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/users/:id" component={Users} />
+        <Route component={() => <h1>404 page not Found</h1>} />
+      </Switch>
+    </Router>
+  </div>);
+}
+
+export default App;
+
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false
+    }
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ redirect: true }), 5000)
+  }
+  render() {
+    if (this.state.redirect) {
+      return <Redirect to="/about" />
+    }
+    return (
+      <>
+        <h1>Home</h1>
+        <Link to="/contact"> <button> Navigate to Contact</button></Link>
+      </>);
+  }
+}
+
+const About = () => {
+  return (<h1>About Page</h1>);
+}
+
+const Contact = () => {
+  return (<h1>Contact Page</h1>);
+}
+
+class Users extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+  render() {
+    const { id } = this.props.match.params
+    console.log("this.props", this.props.match.params)
+    return <>
+      <h1>Users :  {id}</h1>
+    </>
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 const Parent = () => {
   const [showChild, updateShowChild] = useState(true);
@@ -142,7 +224,7 @@ const Parent = () => {
           <img src={small_image} />
           <h3>{title}</h3>
           <h4 style={{ color: "red" }}>{slug}</h4>
-          <h5>{authorname}</h5>
+          <h5>{authorname} {moment.utc(posted_on).format("DD MMM YYYY")}</h5>
           <p>{description}</p>
         </div>
       )}
@@ -161,7 +243,6 @@ const Parent = () => {
   </div>);
 }
 
-export default Parent;
 
 const Child = ({ count }) => {
   const [childCount, updateChildCount] = useState(count);
