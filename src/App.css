@@ -3,7 +3,7 @@
 }
 
 .head-title{
-  position: fixed;
+  /* position: fixed; */
   height: 60px;
   width: 100%;
   background-color: aqua;
@@ -75,4 +75,12 @@
 
 .capsule-highlight{
   background-color: blue;
+}
+
+.ant-form-item-required{
+  color: blue !important
+}
+
+.borderColor{
+  border: 2px solid red;
 }
