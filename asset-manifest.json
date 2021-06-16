@@ -1,25 +1,22 @@
 {
   "files": {
-    "main.css": "/React_May_21/static/css/main.b7c3a2f5.chunk.css",
-    "main.js": "/React_May_21/static/js/main.c8891202.chunk.js",
-    "main.js.map": "/React_May_21/static/js/main.c8891202.chunk.js.map",
-    "runtime-main.js": "/React_May_21/static/js/runtime-main.e95b230a.js",
-    "runtime-main.js.map": "/React_May_21/static/js/runtime-main.e95b230a.js.map",
-    "static/css/2.250ae829.chunk.css": "/React_May_21/static/css/2.250ae829.chunk.css",
-    "static/js/2.e0af5195.chunk.js": "/React_May_21/static/js/2.e0af5195.chunk.js",
-    "static/js/2.e0af5195.chunk.js.map": "/React_May_21/static/js/2.e0af5195.chunk.js.map",
-    "static/js/3.bdc28618.chunk.js": "/React_May_21/static/js/3.bdc28618.chunk.js",
-    "static/js/3.bdc28618.chunk.js.map": "/React_May_21/static/js/3.bdc28618.chunk.js.map",
+    "main.css": "/React_May_21/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/React_May_21/static/js/main.7191e90a.chunk.js",
+    "main.js.map": "/React_May_21/static/js/main.7191e90a.chunk.js.map",
+    "runtime-main.js": "/React_May_21/static/js/runtime-main.2016db86.js",
+    "runtime-main.js.map": "/React_May_21/static/js/runtime-main.2016db86.js.map",
+    "static/js/2.04fdcac8.chunk.js": "/React_May_21/static/js/2.04fdcac8.chunk.js",
+    "static/js/2.04fdcac8.chunk.js.map": "/React_May_21/static/js/2.04fdcac8.chunk.js.map",
+    "static/js/3.78dae61a.chunk.js": "/React_May_21/static/js/3.78dae61a.chunk.js",
+    "static/js/3.78dae61a.chunk.js.map": "/React_May_21/static/js/3.78dae61a.chunk.js.map",
     "index.html": "/React_May_21/index.html",
-    "static/css/2.250ae829.chunk.css.map": "/React_May_21/static/css/2.250ae829.chunk.css.map",
-    "static/css/main.b7c3a2f5.chunk.css.map": "/React_May_21/static/css/main.b7c3a2f5.chunk.css.map",
-    "static/js/2.e0af5195.chunk.js.LICENSE.txt": "/React_May_21/static/js/2.e0af5195.chunk.js.LICENSE.txt"
+    "static/css/main.6dea0f05.chunk.css.map": "/React_May_21/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.04fdcac8.chunk.js.LICENSE.txt": "/React_May_21/static/js/2.04fdcac8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e95b230a.js",
-    "static/css/2.250ae829.chunk.css",
-    "static/js/2.e0af5195.chunk.js",
-    "static/css/main.b7c3a2f5.chunk.css",
-    "static/js/main.c8891202.chunk.js"
+    "static/js/runtime-main.2016db86.js",
+    "static/js/2.04fdcac8.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.7191e90a.chunk.js"
   ]
 }
