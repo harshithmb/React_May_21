@@ -1,11 +1,11 @@
-import * as actionTypes from "../actionTypes";
-
-export const getProducts = (payload) => ({
-  type: actionTypes.GET_PRODUCTS,
-  payload,
-});
+import { ADD_PRODUCT, DELETE_PRODUCT } from "../actionTypes";
 
 export const addProduct = (payload) => ({
-  type: actionTypes.ADD_PRODUCT,
+  type: ADD_PRODUCT,
+  payload: payload,
+});
+
+export const deleteProduct = (payload) => ({
+  type: DELETE_PRODUCT,
   payload,
 });
