@@ -14,9 +14,10 @@ import MailIcon from "@material-ui/icons/Mail";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import "./Topbar.css";
-
+import { Link } from "react-router-dom";
 //Redux
 import { connect } from "react-redux";
+import { getSearchValue } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -168,9 +169,11 @@ function PrimarySearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar position="static" className="appBar">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Shoplane
-          </Typography>
+          <Link to="/">
+            <Typography className={classes.title} variant="h6" noWrap>
+              Shoplane
+            </Typography>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -181,27 +184,33 @@ function PrimarySearchAppBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onChange={(e) => props.search(e.target.value)}
               inputProps={{ "aria-label": "search" }}
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={props.cart.length} color="secondary">
-                <AddShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
+          <Link to="/cart">
+            <div className={classes.sectionDesktop}>
+              <IconButton
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={props.cart.length} color="secondary">
+                  <AddShoppingCartIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+          </Link>
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -225,4 +234,10 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps, null)(PrimarySearchAppBar);
+const mapDispatchToProps = (dispatch) => ({
+  search: (payload) => dispatch(getSearchValue(payload)),
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PrimarySearchAppBar);

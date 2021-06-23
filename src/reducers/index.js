@@ -1,7 +1,8 @@
 import * as actionTypes from "../actionTypes";
 
 const initialState = {
-  products: [{ name: "Hello" }],
+  products: [],
+  orginalProducts: [],
   cart: [],
 };
 
@@ -10,7 +11,15 @@ export default (state = initialState, { type, payload }) => {
     case actionTypes.ADD_PRODUCT:
       return { ...state, cart: [...state.cart, payload] };
     case actionTypes.GET_PRODUCTS:
-      return { ...state, products: payload };
+      return { ...state, products: payload, orginalProducts: payload };
+    case actionTypes.SEARCH_PRODUCTS: {
+      const filterProducts = state.orginalProducts.filter(
+        ({ name }) =>
+          name && name.toLowerCase().includes(payload && payload.toLowerCase())
+      );
+      return { ...state, products: filterProducts };
+    }
+
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, GET_PRODUCTS } from "../actionTypes";
+import { ADD_PRODUCT, GET_PRODUCTS, SEARCH_PRODUCTS } from "../actionTypes";
 
 export const addProduct = (payload) => ({
   type: ADD_PRODUCT,
@@ -7,5 +7,10 @@ export const addProduct = (payload) => ({
 
 export const getProducts = (payload) => ({
   type: GET_PRODUCTS,
+  payload,
+});
+
+export const getSearchValue = (payload) => ({
+  type: SEARCH_PRODUCTS,
   payload,
 });
