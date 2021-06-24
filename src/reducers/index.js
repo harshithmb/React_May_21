@@ -20,6 +20,9 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, products: filterProducts };
     }
 
+    case actionTypes.CLEAR_CART:
+      return { ...state, cart: [] };
+
     default:
       return state;
   }
